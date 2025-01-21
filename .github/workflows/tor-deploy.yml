@@ -58,7 +58,14 @@ jobs:
 
     - name: Get Onion Address
       run: |
-          sudo cat /var/lib/tor/hidden_service/hostname
+        sudo cat /var/lib/tor/hidden_service/hostname > onion_address.txt
+      shell: bash
+
+    - name: Upload Onion Address
+      uses: actions/upload-artifact@v2
+      with:
+        name: onion-address
+        path: onion_address.txt
 
     - name: Delay to keep server running
       run: |
