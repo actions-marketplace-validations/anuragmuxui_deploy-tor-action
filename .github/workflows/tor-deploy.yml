@@ -62,7 +62,7 @@ jobs:
       shell: bash
 
     - name: Upload Onion Address
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: onion-address
         path: onion_address.txt
