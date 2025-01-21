@@ -21,24 +21,30 @@ runs:
       run: |
         sudo apt-get update
         sudo apt-get install apache2 tor -y
+      shell: bash
 
     - name: Create Tor Directory
       run: mkdir tor
+      shell: bash
 
     - name: Enter Tor Directory
       run: cd tor
+      shell: bash
 
     - name: Clone GitHub Repository
       run: git clone https://github.com/${{ github.repository }}.git
+      shell: bash
 
     - name: Copy Website to Apache2 Directory
       run: |
         sudo cp -r $(basename ${{ github.repository }})/* /var/www/html/
+      shell: bash
 
     - name: Configure Apache2
       run: |
         sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
         sudo systemctl restart apache2
+      shell: bash
 
     - name: Configure Tor
       run: |
@@ -48,20 +54,26 @@ runs:
         sudo bash -c "echo 'HiddenServiceDir /var/lib/tor/hidden_service' >> /etc/tor/torrc"
         sudo bash -c "echo 'HiddenServicePort 80 127.0.0.1:80' >> /etc/tor/torrc"
         sudo systemctl restart tor
+      shell: bash
 
     - name: Wait for Tor Service to Start
       run: sleep 30  # Wait for 30 seconds to make sure service is up
+      shell: bash
 
     - name: Check Apache Status
       run: sudo systemctl status apache2
+      shell: bash
 
     - name: Check Tor Status
       run: sudo systemctl status tor
+      shell: bash
 
     - name: Get Onion Address
       run: |
-          sudo cat /var/lib/tor/hidden_service/hostname
+        sudo cat /var/lib/tor/hidden_service/hostname
+      shell: bash
 
     - name: Delay to keep server running
       run: |
         sleep 18000 # keep the server running for 5 hours
+      shell: bash
