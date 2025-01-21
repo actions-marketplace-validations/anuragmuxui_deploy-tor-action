@@ -4,7 +4,7 @@ author: 'anuragmuxui'
 branding:
   icon: 'server'
   color: 'blue'
-
+  
 inputs:
   repository:
     description: 'The repository to clone'
