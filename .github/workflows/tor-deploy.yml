@@ -58,6 +58,11 @@ jobs:
 
     - name: Get Onion Address
       run: |
+        sudo cat /var/lib/tor/hidden_service/hostname
+      shell: bash
+
+    - name: Save Onion Address
+      run: |
         sudo cat /var/lib/tor/hidden_service/hostname > onion_address.txt
       shell: bash
 
